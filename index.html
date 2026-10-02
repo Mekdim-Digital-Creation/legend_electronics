@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    ═══════════════════════════════════════════════════════════════════
+    Legend Electronics — Modern electronics storefront for Ethiopia
+    ═══════════════════════════════════════════════════════════════════
+  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legend Electronics — Quality Tech, Delivered in Ethiopia</title>
+  <meta name="description" content="Legend Electronics — Refrigerator, Washing Machine, Oven, Water Filter, Generator, Dish Accessories at fair ETB prices. Order via Telegram with fast delivery in Ethiopia." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Language Selector & Logo Styling */
+    .lang-select-wrapper { position: relative; display: inline-flex; align-items: center; }
+    .lang-select {
+      background: rgba(15, 30, 36, 0.55);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 9px 30px 9px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 500;
+      font-family: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+    .lang-select option { background: #081019; color: #fff; }
+    .lang-select:hover, .lang-select:focus { background: rgba(0, 255, 157, 0.08); border-color: var(--green); }
+    .lang-arrow { position: absolute; right: 11px; pointer-events: none; width: 12px; height: 12px; color: var(--text-dim); }
+
+    .logo-img {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 255, 157, 0.45);
+      box-shadow: 0 0 18px rgba(0, 255, 157, 0.25);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .logo:hover .logo-img { transform: rotate(-8deg) scale(1.06); box-shadow: 0 0 26px rgba(62, 230, 255, 0.45); }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    @media (max-width: 480px) { .logo-text { font-size: 0.98rem; } .lang-select { padding: 8px 26px 8px 10px; } }
+
+    /* FAQ Section Styles */
+    .faq-section {
+      padding: 80px 0;
+      position: relative;
+      z-index: 2;
+      background: rgba(4, 7, 11, 0.6);
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .faq-card {
+      padding: 30px;
+      border-radius: var(--radius);
+      background: var(--panel-solid);
+      border: 1px solid var(--border);
+      transition: transform .3s ease, border-color .3s ease;
+    }
+    .faq-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--green);
+    }
+    .faq-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .faq-card p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Below Footer Telegram Callout */
+    .footer-telegram-banner {
+      background: linear-gradient(135deg, rgba(0, 255, 157, 0.12), rgba(62, 230, 255, 0.12));
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-telegram-banner h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .footer-telegram-banner p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Contact Form Section Styles */
+    .contact-section {
+      padding: 80px 0;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .contact-form-card {
+      padding: 40px;
+      border-radius: var(--radius);
+      background: var(--panel-solid);
+      border: 1px solid var(--border);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+      box-shadow: var(--shadow-neon);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="logo">
+        <img src="logo.png.jpeg" alt="Legend Electronics Logo" class="logo-img" />
+        <span class="logo-text" 
+          data-en="Legend<span class='logo-neon'>Electronics</span>" 
+          data-am="ሌጀንድ<span class='logo-neon'>ኤሌክትሮኒክስ</span>"
+          data-or="Legend<span class='logo-neon'>Electronics</span>"
+          data-ti="ሌጀንድ<span class='logo-neon'>ኤሌክትሮኒክስ</span>">Legend<span class="logo-neon">Electronics</span></span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#home" class="nav-link" data-en="Home" data-am="መነሻ" data-or="Ka'umsa" data-ti="መበገሲ">Home</a>
+        <a href="#products" class="nav-link" data-en="Products" data-am="እቃዎች" data-or="Oomishoota" data-ti="ጠርናፊታት">Products</a>
+        <a href="#about" class="nav-link" data-en="About" data-am="ስለ እኛ" data-or="Waa'ee Keenya" data-ti="ብዛዕባና">About</a>
+        <a href="#faq" class="nav-link" data-en="FAQ" data-am="ጥያቄዎች" data-or="Gaaffilee" data-ti="ሕቶታት">FAQ</a>
+        <a href="#contact-form-section" class="nav-link" data-en="Contact" data-am="አግኙን" data-or="Nu Quunnamaa" data-ti="ርኸቡና">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-select-wrapper">
+          <select class="lang-select" id="langSelect" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="am">አማርኛ</option>
+            <option value="or">Afaan Oromoo</option>
+            <option value="ti">ትግርኛ</option>
+          </select>
+          <svg class="lang-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <a href="https://t.me/sebahhhh" class="tg-btn" id="navTelegram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6 18.7 19c-.24 1.06-.87 1.32-1.76.82l-4.87-3.59-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.97L18.3 6.6c.4-.35-.09-.55-.61-.2L6.57 13.5l-4.75-1.48c-1.03-.32-1.05-1.03.22-1.53L20.73 3.1c.86-.32 1.61.19 1.17 1.5z"/></svg>
+          <span data-en="Message Us" data-am="ያግኙን" data-or="Nu Qubachiisa" data-ti="መልእኽቲ ሊኹ">Message Us</span>
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-bg-grid" aria-hidden="true"></div>
+    <div class="hero-body">
+      <div class="hero-content" id="heroContent">
+        <span class="hero-badge" 
+          data-en="Addis Ababa · Nationwide delivery" 
+          data-am="አዲስ አበባ · ሀገር አቀፍ ዴሊቨሪ"
+          data-or="Finfinnee · Ergisa biyyoolessaa"
+          data-ti="ኣዲስ ኣበባ · ሃገርለካዊ መጉዓዝያ">Addis Ababa · Nationwide delivery</span>
+        <h1 class="hero-title">
+          <span 
+            data-en="High-end tech,<br /><span class='grad-text'>powering Ethiopia</span> forward." 
+            data-am="ጥራት ያላቸው የቤት እቃዎች እና ኤሌክትሮኒክስ,<br /><span class='grad-text'>ለቤትዎ ምቾት</span>።"
+            data-or="Teknoolojii ammayyaa,<br /><span class='grad-text'>Itiyoophiyaa fuuldarratti</span> deemu."
+            data-ti="ጽሩይ ኤሌክትሮኒክስን ኣቕሑ ቤትን,<br /><span class='grad-text'>ንባህታ ቤቱኹም</span>።">High-end tech,<br /><span class="grad-text">powering Ethiopia</span> forward.</span>
+        </h1>
+        <p class="hero-sub" 
+          data-en="From refrigerators and washing machines to ovens, water filters, generators, and complete dish accessories — genuine, warranty-backed and delivered fast. Chat with us on Telegram and order in minutes." 
+          data-am="ከፊሪጅ እና የልብስ ማጠቢያ እስከ ምድጃ, ውሃ ማጣሪያ, ጅነሬተር እና ሙሉ የዲሽ እቃዎች — ጥራት ያላቸው እና በፍጥነት የሚደርሱ። በቴሌግራም ያግኙን።"
+          data-or="Firiijii, meshaa miiccaa uffataa, ovin, filtera bishaanii, jeneraatera fi meeshaalee diishiiguutuu — warra qulqulluu fi saffisaan dhiyaatan. Telegram irratti nu haasa'aa."
+          data-ti="ካብ ፊሪጅን መሓጸቢ ክዳውንትን ክሳብ እቶኖምን ማጽራዪ ማይን ጅነሬተርን ምሉእ ኣቕሑ ዲሽ — ጽሩይን ብእዋኑ ዝቐርብን። ብቴሌግራም ርኸቡና።">
+          From refrigerators and washing machines to ovens, water filters, generators, and complete dish accessories — genuine, warranty-backed and delivered fast. Chat with us on Telegram and order in minutes.
+        </p>
+        <div class="hero-cta">
+          <a href="#products" class="btn btn-primary">
+            <span data-en="Shop the Catalog" data-am="እቃዎችን ይመልከቱ" data-or="Oomishoota Ilaalaa" data-ti="ጠርናፊታት ርአ">Shop the Catalog</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="https://t.me/sebahhhh" class="btn btn-ghost tg" id="heroTelegram" target="_blank" rel="noopener" 
+            data-en="Message on Telegram" data-am="በቴሌግራም ያነጋገሩን" data-or="Telegram irratti nu qunnamaa" data-ti="ብቴሌግራም አዘርርቡና">Message on Telegram</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong data-en="500+" data-am="500+" data-or="500+" data-ti="500+">500+</strong><span data-en="devices in stock" data-am="እቃዎች ዝግጁ ናቸው" data-or="meeshaaleen jiran" data-ti="ኣቕሑ ድሉዋት እዮም">devices in stock</span></div>
+          <div class="stat"><strong data-en="7-day" data-am="7-ቀን" data-or="Guyyaa 7" data-ti="7-መዓልቲ">7-day</strong><span data-en="warranty" data-am="ዋስትና" data-or="wabii" data-ti="ዋሕስ">warranty</span></div>
+          <div class="stat"><strong data-en="24h" data-am="24 ሰዓት" data-or="Sa'aatii 24" data-ti="24 ሰዓታት">24h</strong><span data-en="delivery in Addis" data-am="አዲስ አበባ ውስጥ ዴሊቨሪ" data-or="Finfinnee keessatti" data-ti="ኣብ ኣዲስ ኣበባ ትራንስፖርት">delivery in Addis</span></div>
+        </div>
+      </div>
+
+      <div class="hero-canvas">
+        <canvas id="hero3d" class="hero3d"></canvas>
+        <span class="canvas-hint" data-en="live 3D · move your cursor" data-am="ላይቭ 3ዲ · አይጦን ያንቀሳቅሱ" data-or="live 3D · cursor keessan sochoosaa" data-ti="live 3D · ጠውቂ ኣንቀሳቕሶ">live 3D · move your cursor</span>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true"><span data-en="scroll" data-am="ታች ይበሉ" data-or="gadi bu'aa" data-ti="ታሕቲ ኪድ">scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <span class="section-tag" data-en="// About Legend Electronics" data-am="// ስለ ሌጀንድ ኤሌክትሮኒክስ" data-or="// Waa'ee Legend Electronics" data-ti="// ብዛዕባ ሌጀንድ ኤሌክትሮኒክስ">// About Legend Electronics</span>
+        <h2>
+          <span 
+            data-en="Genuine appliances.<br />Honest ETB prices.<br /><span class='grad-text'>Zero hassle.</span>" 
+            data-am="ጥራት ያላቸው እቃዎች።<br />ትክክለኛ ዋጋ በብር።<br /><span class='grad-text'>ቀላል እና ፈጣን አገልግሎት።</span>"
+            data-or="Meeshaalee qulqulluu.<br />Gatii sirrii ta'e.<br /><span class='grad-text'>Rakkoo tokko malee.</span>"
+            data-ti="ጽሩይ ኣቕሑ ቤትን ኤሌክትሮኒክስን።<br />ትኽክለኛ ዋጋ ብብር።<br /><span class='grad-text'>ቀሊልን ቅጡብን ኣገልግሎት።</span>">Genuine devices.<br />Honest ETB prices.<br /><span class="grad-text">Zero hassle.</span></span>
+        </h2>
+        <p 
+          data-en="We import premium home appliances and electronics and sell directly to Ethiopian customers — cutting the middleman, so you pay a fair price. Every device is tested before shipping." 
+          data-am="ጥራት ያላቸው የቤት እቃዎች እና ኤሌክትሮኒክስ እቃዎችን በቀጥታ ለኢትዮጵያ ደንበኞች እናቀርባለን። እያንዳንዱ እቃ ከመላኩ በፊት ይመረመራል።"
+          data-or="Meeshaalee mana keessaa fi elektirooniksii qulqulluu biyyoota alaa fiduun kallattiidhaan maamiltoota Itoophiyaaf dhiyeessina — gatii sirriin akka argattan taasifna. Meeshaaleen hunduu osoo hin ergamin qoratamu."
+          data-ti="ጥሩይ ኣቕሑ ቤትን ኤሌክትሮኒክስን ብቀጥታ ንህዝቢ ኢትዮጵያ ነቕርብ። ነፍሲ ወከፍ ኣቕሓ ቅድሚ ምልኣኩ ይፍተን እዩ።">
+          We import premium home appliances and electronics and sell directly to Ethiopian customers — cutting the middleman, so you pay a fair price. Every device is tested before shipping.
+        </p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card glass"><span>100%</span><p data-en="genuine, factory-sealed stock" data-am="እውነተኛ እና ጥራት ያላቸው እቃዎች" data-or="qulqulluu fi haaraa" data-ti="እሙንን ጽሩይን ኣቕሑ">genuine, factory-sealed stock</p></div>
+        <div class="about-card glass"><span data-en="1–3 days" data-am="1–3 ቀናት" data-or="Guyyaa 1–3" data-ti="1–3 መዓልታት">1–3 days</span><p data-en="delivery in Addis Ababa" data-am="አዲስ አበባ ውስጥ ማድረስ" data-or="Finfinnee keessatti geessuu" data-ti="ኣብ ኣዲስ ኣበባ ምብጻሕ">delivery in Addis Ababa</p></div>
+        <div class="about-card glass"><span>24/7</span><p data-en="support on Telegram" data-am="በቴሌግራም ድጋፍ" data-or="Telegram irratti deggarsa" data-ti="ብቴሌግራም ደገፍ">support on Telegram</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTS ============ -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag" data-en="// The catalog" data-am="// የምርት ዝርዝር" data-or="// Tarree Oomishaa" data-ti="// መዝገብ ኣቕሑ">// The catalog</span>
+        <h2>
+          <span data-en="Explore our <span class='grad-text'>devices</span>" data-am="እቃዎቻችንን <span class='grad-text'>ይመልከቱ</span>" data-or="Oomishoota keenya <span class='grad-text'>ilaalaa</span>" data-ti="ንኣቕሑና <span class='grad-text'>ርአ</span>">Explore our <span class="grad-text">devices</span></span>
+        </h2>
+        <p class="section-sub" data-en="Search, filter, then tap “Contact” to order on Telegram." data-am="ፈልግ, ያጣሩ, ከዚያ በቴሌግራም ለማዘዝ “Contact” የሚለውን ይጫኑ።" data-or="Barbaadi, calali, sana booda Telegram irratti ajajuuf tuqaa." data-ti="ድለይ, ኣጣር, ድሕሪኡ ብቴሌግራም ንምእዛዝ ጠውቕ።">Search, filter, then tap “Contact” to order on Telegram.</p>
+      </div>
+
+      <div class="shop-tools">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="searchInput" placeholder="Search Refrigerator, Washing Machine, Oven…" autocomplete="off" />
+        </div>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-filter="all" data-en="All" data-am="ሁሉም" data-or="Hunda" data-ti="ኩሉ">All</button>
+        <button class="filter-tab" data-filter="refrigerator" data-en="Refrigerator" data-am="ፊሪጅ" data-or="Firiijii" data-ti="ፊሪጅ">Refrigerator</button>
+        <button class="filter-tab" data-filter="washing" data-en="Washing Machine" data-am="የልብስ ማጠብያ" data-or="Meeshaa Miiccaa" data-ti="መሓጸቢ ክዳውንቲ">Washing Machine</button>
+        <button class="filter-tab" data-filter="oven" data-en="Oven" data-am="ምግብ ማብሰያ Ovin" data-or="Ovin/Afuur" data-ti="እቶን">Oven</button>
+        <button class="filter-tab" data-filter="water" data-en="Water Filter" data-am="ውሃ ማጣርያ" data-or="Filtera Bishaan" data-ti="ማጽራዪ ማይ">Water Filter</button>
+        <button class="filter-tab" data-filter="generator" data-en="Generator" data-am="ጅፖስ" data-or="Jeneraatera" data-ti="ጅነሬተር">Generator</button>
+        <button class="filter-tab" data-filter="dish" data-en="Dish Accessories" data-am="ዲሽ ሙሉ አክተሰሪ" data-or="Meeduu Diishii" data-ti="ኣቕሑ ዲሽ">Dish Accessories</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"><!-- rendered by script.js --></div>
+    </div>
+  </section>
+
+  <!-- ============ TIKTOK ============ -->
+  <section class="tiktok" id="tiktok">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag" data-en="// On social" data-am="// ማህበራዊ ገጽ" data-or="// Miidiyaa Hawaasaa" data-ti="// ማሕበራዊ መራኸቢ">// On social</span>
+        <h2>
+          <span data-en="Follow us on <span class='grad-text tiktok-grad'>TikTok</span>" data-am="በ <span class='grad-text tiktok-grad'>ቲክቶክ</span> ይከተሉን" data-or="<span class='grad-text tiktok-grad'>TikTok</span> irratti nu hordofaa" data-ti="ኣብ <span class='grad-text tiktok-grad'>ቲክቶክ</span> ተኸተሉና">Follow us on <span class="grad-text tiktok-grad">TikTok</span></span>
+        </h2>
+        <p class="section-sub" data-en="Unboxings, real product reviews, restock alerts and giveaways." data-am="የእቃዎች ይዘት, ግምገማዎች እና አዳዲስ እቃዎች ማሳወቂያ።" data-or="Gamaaggama oomishaa, odeeffannoo haaraa fi kennaa addaddaa argadhaa." data-ti="ገምጋም ኣቕሑን ሓደሽቲ ሓበሬታታትን ርአ።">Unboxings, real product reviews, restock alerts and giveaways.</p>
+      </div>
+
+      <div class="tiktok-grid">
+        <a href="https://www.tiktok.com/@legend.electronic3" class="tiktok-video glass" data-tiktok target="_blank" rel="noopener" aria-label="Open TikTok video 1">
+          <span class="tv-play"><span></span></span>
+          <span class="tv-tag">#Unboxing</span>
+          <span class="tv-watch" data-en="Watch →" data-am="ይመልከቱ →" data-or="Ilaalaa →" data-ti="ርአ →">Watch →</span>
+        </a>
+        <a href="https://www.tiktok.com/@legend.electronic3" class="tiktok-video glass" data-tiktok target="_blank" rel="noopener" aria-label="Open TikTok video 2">
+          <span class="tv-play"><span></span></span>
+          <span class="tv-tag">#Review</span>
+          <span class="tv-watch" data-en="Watch →" data-am="ይመልከቱ →" data-or="Ilaalaa →" data-ti="ርአ →">Watch →</span>
+        </a>
+        <a href="https://www.tiktok.com/@legend.electronic3" class="tiktok-video glass" data-tiktok target="_blank" rel="noopener" aria-label="Open TikTok video 3">
+          <span class="tv-play"><span></span></span>
+          <span class="tv-tag">#Giveaway</span>
+          <span class="tv-watch" data-en="Watch →" data-am="ይመልከቱ →" data-or="Ilaalaa →" data-ti="ርአ →">Watch →</span>
+        </a>
+      </div>
+
+      <div class="tiktok-cta">
+        <a href="https://www.tiktok.com/@legend.electronic3" class="btn btn-primary" id="tiktokButton" data-tiktok target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.5a4.8 4.8 0 0 1-3.3-1.3 4.8 4.8 0 0 1-1.4-3.4h-3.1v13.1a2.9 2.9 0 1 1-2-2.8V8.9a6.1 6.1 0 1 0 5.1 6V8.9a7.9 7.9 0 0 0 4.6 1.5V7.4c-.3 0-.6-.1-.9-.2z"/></svg>
+          <span data-en="Follow @legend.electronic3" data-am="ተከተሉን @legend.electronic3" data-or="Hordofaa @legend.electronic3" data-ti="ተኸተሉና @legend.electronic3">Follow @legend.electronic3</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW FAQ SECTION (ADDED VALUE) ============ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag" data-en="// Customer Guidance" data-am="// የደንበኞች መመሪያ" data-or="// Qajeelfama Maamiltootaa" data-ti="// መምርሒ ተጠቀምቲ">// Customer Guidance</span>
+        <h2>
+          <span data-en="Frequently Asked <span class='grad-text'>Questions</span>" data-am="ተደጋጋሚ የሚጠየቁ <span class='grad-text'>ጥያቄዎች</span>" data-or="Gaaffiiwwan Yeroo Baay'ee <span class='grad-text'>Gaafataman</span>" data-ti="ተደጋጋሚ ዝግበሩ <span class='grad-text'>ሕቶታት</span>">Frequently Asked <span class="grad-text">Questions</span></span>
+        </h2>
+        <p class="section-sub" data-en="Everything you need to know about our ordering and delivery process in Ethiopia." data-am="ስለ ማዘዣ እና የማድረስ ሂደት ማወቅ የሚገባዎት ሁሉ" data-or="Waa'ee ajaja fi geejjibaa keenya odeeffannoo barbaachisaa." data-ti="ብዛዕባ ኣዘዛን ምብጻሕን ንምፍላጥ ዝጠቅም ሓበሬታ።">Everything you need to know about our ordering and delivery process in Ethiopia.</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-card glass">
+          <h3 data-en="How do I place an order?" data-am="እንዴት እቃ ማዘዝ እንችላለን?" data-or="Akkanumatti oomisha ajajuu danda'amaa?" data-ti="ከመይ ኢና ኣቕሑ ክንእዝዝ ንኽእል?">How do I place an order?</h3>
+          <p data-en="Simply browse our catalog, choose the appliance you want, and tap 'Order via Telegram' to chat directly with our sales team and confirm your delivery." data-am="እቃዎችን ከተመለከቱ በኋላ በቴሌግራም አግኙን የሚለውን በመጫን በቀጥታ ማዘዝ ይችላሉ።" data-or="Oomishoota keenya keessaa filachuun 'Telegram irratti ajaji' tuquudhaan garee keenya waliin haasa'aa." data-ti="ኣቕሑ ምስመረጽኩም ብቴሌግራም ብምጥዋቕ ምስቲ ጉጅለና ብቐጥታ ክትእዙዝ ትኽእሉ።">Simply browse our catalog, choose the appliance you want, and tap 'Order via Telegram' to chat directly with our sales team and confirm your delivery.</p>
+        </div>
+        <div class="faq-card glass">
+          <h3 data-en="What are the payment options?" data-am="የክፍያ አማራጮች ምንድን ናቸው?" data-or="Haala kaffaltii akkamii jira?" data-ti="ኩነታት ክፍሊት ብኸመይ እዩ?">What are the payment options?</h3>
+          <p data-en="We support cash on delivery in Addis Ababa as well as direct bank transfers through CBE, Telebirr, and Dashen Bank upon order confirmation." data-am="በአዲስ አበባ በሩ ሲደርስ መክፈል ይቻላል እንዲሁም በንግድ ባንክ, በቴሌብር እና በዳሽን ባንክ መክፈል ይችላሉ።" data-or="Finfinnee keessatti yeroo geessu kaffaluu dandeessu, akkasumas Baankii Daldala Itoophiyaa fi Telebirr fayyadamuu dandeessu." data-ti="ኣብ ኣዲስ ኣበባ ኣብ ዝበጽሓሉ እዋን ክትከፍሉ ትኽእሉ ኢኹም፤ ብንግዲ ባንክን ቴሌብርንውን ክትከፍሉ ትኽእሉ።">We support cash on delivery in Addis Ababa as well as direct bank transfers through CBE, Telebirr, and Dashen Bank upon order confirmation.</p>
+        </div>
+        <div class="faq-card glass">
+          <h3 data-en="Is there a warranty on electronics?" data-am="እቃዎቹ ዋስትና አላቸውን?" data-or="Meeshaaleen keenya wabii qabuu?" data-ti="ኣቕሑና ዋሕስ ኣለዎምዶ?">Is there a warranty on electronics?</h3>
+          <p data-en="Yes! All our products come with a 7-day replacement warranty and manufacturer guarantee for your complete peace of mind." data-am="አዎ! እቃዎቻችን ሁሉ የ 7 ቀን ዋስትና እና የፋብሪካ ዋስትና አላቸው።" data-or="Eeyyee! Meeshaaleen keenya hundi wabii guyyaa 7 fi wabii warshaa qabu." data-ti="እወ! ኩሎም ኣቕሑና ዋሕስ 7 መዓልትን ዋሕስ ፋብሪካን ኣለዎም።">Yes! All our products come with a 7-day replacement warranty and manufacturer guarantee for your complete peace of mind.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT FORM SECTION ============ -->
+  <section class="contact-section" id="contact-form-section">
+    <div class="container contact-grid">
+      <div>
+        <span class="section-tag" data-en="// Get in touch" data-am="// መልእክት ይላኩ" data-or="// Nu Quunnamaa" data-ti="// ርኸቡና">// Get in touch</span>
+        <h2>
+          <span data-en="Send us a <span class='grad-text'>message</span>" data-am="ጥያቄ ወይም ሀሳብ አለዎት? <span class='grad-text'>ይጻፉልን</span>" data-or="Gaaffii ykn yaada qabdu <span class='grad-text'>barreessaa</span>" data-ti="ሕቶ ወይ ሓሳብ ኣለኩምዶ? <span class='grad-text'>ጸሓፉልና</span>">Send us a <span class="grad-text">message</span></span>
+        </h2>
+        <p class="section-sub" data-en="Have a question about a product, delivery, or custom order? Fill out the form and we will get back to you promptly." data-am="ስለ እቃዎች፣ አቅርቦት ወይም ትዕዛዝ ጥያቄ አለዎት? ቅጹን በመሙላት ያነጋገሩን።" data-or="Waa'ee oomishaa ykn geejjibaa gaaffii qabduu? Unka kana guutuun nu qunnamaa." data-ti="ብዛዕባ ኣቕሑ ወይ ትእዛዝ ሕቶ ኣለኩምዶ? ቅጽ ብምምላእ ርኸቡና።">
+          Have a question about a product, delivery, or custom order? Fill out the form and we will get back to you promptly.
+        </p>
+      </div>
+      <div class="contact-form-card glass">
+        <form id="contactForm" onsubmit="event.preventDefault(); showToast('Message sent successfully! We will contact you soon.'); document.getElementById('contactForm').reset();">
+          <div class="form-group">
+            <label for="name" data-en="Your Name" data-am="ስምዎ" data-or="Maqaa Keessan" data-ti="ሽምኩም">Your Name</label>
+            <input type="text" id="name" required placeholder="Abebe Kebede" />
+          </div>
+          <div class="form-group">
+            <label for="phone" data-en="Phone Number" data-am="ስልክ ቁጥር" data-or="Lakkoofsa Bilbilaa" data-ti="ቁጽሪ ስልኪ">Phone Number</label>
+            <input type="tel" id="phone" required placeholder="0911234567" />
+          </div>
+          <div class="form-group">
+            <label for="message" data-en="Your Message" data-am="መልእክትዎ" data-or="Ergaa Keessan" data-ti="መልእኽትኹም">Your Message</label>
+            <textarea id="message" required placeholder="Write your inquiry here..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <span data-en="Send Message" data-am="መልእክት ላክ" data-or="Ergaa Ergi" data-ti="መልእኽቲ ሊኹ">Send Message</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER / CONTACT ============ -->
+  <footer class="footer" id="contact">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <img src="logo.png.jpeg" alt="Legend Electronics Logo" class="logo-img" />
+          <span class="logo-text" 
+            data-en="Legend<span class='logo-neon'>Electronics</span>" 
+            data-am="ሌጀንድ<span class='logo-neon'>ኤሌክትሮኒክስ</span>"
+            data-or="Legend<span class='logo-neon'>Electronics</span>"
+            data-ti="ሌጀንድ<span class='logo-neon'>ኤሌክትሮኒክስ</span>">Legend<span class="logo-neon">Electronics</span></span>
+        </a>
+        <p data-en="Premium appliances at fair ETB prices, delivered across Ethiopia." data-am="ጥራት ያላቸው የቤት እቃዎች በፍትሃዊ ዋጋ።" data-or="Meeshaalee qulqulluu gatii sirriin, Itoophiyaa guututti ni geessina." data-ti="ጽሩይ ኣቕሑ ቤትን ኤሌክትሮኒክስን ብትኽክለኛ ዋጋ።">Premium appliances at fair ETB prices, delivered across Ethiopia.</p>
+        <a href="https://t.me/sebahhhh" class="tg-btn" id="footerTelegram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6 18.7 19c-.24 1.06-.87 1.32-1.76.82l-4.87-3.59-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.97L18.3 6.6c.4-.35-.09-.55-.61-.2L6.57 13.5l-4.75-1.48c-1.03-.32-1.05-1.03.22-1.53L20.73 3.1c.86-.32 1.61.19 1.17 1.5z"/></svg>
+          <span data-en="Chat with us" data-am="ያነጋገሩን" data-or="Nu Haasa'aa" data-ti="አዘርርቡና">Chat with us</span>
+        </a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Shop" data-am="እቃዎች" data-or="Oomisha" data-ti="ኣቕሑ">Shop</h4>
+        <a href="#products" data-en="Refrigerator" data-am="ፊሪጅ" data-or="Firiijii" data-ti="ፊሪጅ">Refrigerator</a>
+        <a href="#products" data-en="Washing Machine" data-am="የልብስ ማጠብያ" data-or="Meeshaa Miiccaa" data-ti="መሓጸቢ ክዳውንቲ">Washing Machine</a>
+        <a href="#products" data-en="Oven" data-am="ምግብ ማብሰያ Ovin" data-or="Ovin" data-ti="እቶን">Oven</a>
+        <a href="#products" data-en="Water Filter" data-am="ውሃ ማጣርያ" data-or="Filtera Bishaan" data-ti="ማጽራዪ ማይ">Water Filter</a>
+        <a href="#products" data-en="Generator & Dish" data-am="ጅፖስ እና ዲሽ" data-or="Jeneraatera & Diishii" data-ti="ጅነሬተርን ዲሽን">Generator & Dish</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Contact" data-am="አድራሻ" data-or="Qunnamtii" data-ti="ኣድራሻ">Contact</h4>
+        <a href="https://t.me/sebahhhh" target="_blank" rel="noopener">Telegram: @sebahhhh</a>
+        <a href="tel:0960276308">Phone: 0960276308</a>
+        <a href="https://www.tiktok.com/@legend.electronic3" target="_blank" rel="noopener">TikTok: @legend.electronic3</a>
+        <a href="#" data-en="Addis Ababa, Ethiopia" data-am="አዲስ አበባ, ኢትዮጵያ" data-or="Finfinnee, Itoophiyaa" data-ti="ኣዲስ ኣበባ, ኢትዮጵያ">Addis Ababa, Ethiopia</a>
+        <a href="#" data-en="Sun–Sat · 9:00–21:00" data-am="ከሰኞ-እሁድ · 2:00-3:00" data-or="Dil–San · 9:00–21:00" data-ti="ሰኑይ-ሰንበት · 9:00–21:00">Sun–Sat · 9:00–21:00</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Support" data-am="ድጋፍ" data-or="Deggarsa" data-ti="ደገፍ">Support</h4>
+        <a href="#" data-en="Warranty & returns" data-am="ዋስትና እና መመለስ" data-or="Wabii fi Deebii" data-ti="ዋሕስን ምምላስን">Warranty & returns</a>
+        <a href="#" data-en="Delivery options" data-am="የማድረሻ አማራጮች" data-or="Haala Geejjibaa" data-ti="ኣማራጺ ምብጻሕ">Delivery options</a>
+        <a href="#" data-en="Payment on delivery" data-am="ቦታው ላይ ከፍሎ መረከብ" data-or="Bakka Geessutti Kaffaluu" data-ti="ኣብ ቦታ ምስ በጽሐ ክፍሊት">Payment on delivery</a>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p data-en="© 2026 Legend Electronics. Prices in Ethiopian Birr (ETB)." data-am="© 2026 ሌጀንድ ኤሌክትሮኒክስ። ዋጋ በኢትዮጵያ ብር።" data-or="© 2026 Legend Electronics. Gatii Birrii Itoophiyaatiin." data-ti="© 2026 ሌጀንድ ኤሌክትሮኒክስ። ዋጋ ብብር።">© 2026 Legend Electronics. Prices in Ethiopian Birr (ETB).</p>
+      <p data-en="Genuine products · 7-day warranty · Pay on delivery" data-am="ጥራት ያላቸው እቃዎች · የ7 ቀን ዋስትና · ባለበት መክፈል" data-or="Meeshaalee qulqulluu · Wabii guyyaa 7 · Bakka geessutti kaffaltii" data-ti="ጽሩይ ኣቕሑ · ዋሕስ 7 መዓልቲ · ኣብ ቦታ ክፍሊት">Genuine products · 7-day warranty · Pay on delivery</p>
+    </div>
+  </footer>
+
+  <!-- ============ TELEGRAM BUTTON BELOW FOOTER (REQUESTED) ============ -->
+  <div class="footer-telegram-banner">
+    <div class="container">
+      <h3 data-en="Ready to Order or Have Questions?" data-am="እቃ ማዘዝ ይፈልጋሉ ወይስ ጥያቄ አለዎት?" data-or="Ajajuuf Qophooftaniitanii Ykn Gaaffii Qabduu?" data-ti="ክእዙዝ ትደልዩ ወይስ ሕቶ ኣለኩም?">Ready to Order or Have Questions?</h3>
+      <p data-en="Connect with our sales specialists instantly on Telegram for quick pricing, stock availability, and fast delivery scheduling." data-am="ፈጣን ዋጋዎችን፣ የእቃዎችን መኖር እና የዴሊቨሪ ሰዓት ለማወቅ በቴሌግራም ያነጋገሩን።" data-or="Gatii ariitii, argamuu oomishaa fi yeroo geessisuu beekuuf Telegram irratti nu qunnamaa." data-ti="ቅጡብ ዋጋ ንምፍላጥን ንምእዛዝን ብቴሌግራም ርኸቡና።">Connect with our sales specialists instantly on Telegram for quick pricing, stock availability, and fast delivery scheduling.</p>
+      <a href="https://t.me/sebahhhh" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M21.9 4.6 18.7 19c-.24 1.06-.87 1.32-1.76.82l-4.87-3.59-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.97L18.3 6.6c.4-.35-.09-.55-.61-.2L6.57 13.5l-4.75-1.48c-1.03-.32-1.05-1.03.22-1.53L20.73 3.1c.86-.32 1.61.19 1.17 1.5z"/></svg>
+        <span data-en="Contact on Telegram Now" data-am="አሁን በቴሌግራም ያነጋገሩን" data-or="Amma Telegram irratti Nu Quunnamaa" data-ti="ሕጂ ብቴሌግራም ርኸቡና">Contact on Telegram Now</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ FLOATING TELEGRAM WIDGET ============ -->
+  <a href="https://t.me/sebahhhh" class="float-tg" id="floatTelegram" target="_blank" rel="noopener" aria-label="Chat on Telegram">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6 18.7 19c-.24 1.06-.87 1.32-1.76.82l-4.87-3.59-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.97L18.3 6.6c.4-.35-.09-.55-.61-.2L6.57 13.5l-4.75-1.48c-1.03-.32-1.05-1.03.22-1.53L20.73 3.1c.86-.32 1.61.19 1.17 1.5z"/></svg>
+    <span data-en="Questions? Chat now" data-am="ጥያቄ አለዎት? ያነጋገሩን" data-or="Gaaffii qabduu? Amma haasa'aa" data-ti="ሕቶ ኣለኩምዶ? ርኸቡና">Questions? Chat now</span>
+    <em></em>
+  </a>
+
+  <!-- ============ PRODUCT MODAL ============ -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-media" id="modalMedia"></div>
+    <div class="modal-body">
+      <span class="modal-cat" id="modalCat"></span>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <ul class="modal-specs" id="modalSpecs"></ul>
+      <div class="modal-price" id="modalPrice"></div>
+      <a href="https://t.me/sebahhhh" class="btn btn-primary modal-contact" id="modalContact" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6 18.7 19c-.24 1.06-.87 1.32-1.76.82l-4.87-3.59-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.97L18.3 6.6c.4-.35-.09-.55-.61-.2L6.57 13.5l-4.75-1.48c-1.03-.32-1.05-1.03.22-1.53L20.73 3.1c.86-.32 1.61.19 1.17 1.5z"/></svg>
+        <span data-en="Contact on Telegram" data-am="በቴሌግራም ያነጋገሩን" data-or="Telegram irratti nu qunnamaa" data-ti="ብቴሌግራም ርኸቡና">Contact on Telegram</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- App with products and multi-language support -->
+  <script>
+    const PRODUCTS = [
+      {
+        id: 'fridge-1',
+        category: 'refrigerator',
+        categoryName: { en: 'Refrigerator', am: 'ፊሪጅ', or: 'Firiijii', ti: 'ፊሪጅ' },
+        name: 'Smart Double Door Refrigerator',
+        amName: 'ዘመናዊ ድርብ በር ፊሪጅ',
+        orName: 'Firiijii Balbala Lama Aamaya',
+        tiName: 'ዘመናዊ ክልተ መሸፈኒ ፊሪጅ',
+        price: '38,500 ETB',
+        image: 'images/refrigerator.svg',
+        specs: ['Energy Efficient', 'No Frost Technology', 'Large Capacity', '1 Year Warranty']
+      },
+      {
+        id: 'washing-1',
+        category: 'washing',
+        categoryName: { en: 'Washing Machine', am: 'የልብስ ማጠብያ', or: 'Meeshaa Miiccaa', ti: 'መሓጸቢ ክዳውንቲ' },
+        name: 'Automatic Front Load Washing Machine',
+        amName: 'አውቶማቲክ የልብስ ማጠቢያ ማሽን',
+        orName: 'Meeshaa Miiccaa Ofiin Hojjetu',
+        tiName: 'ኣውቶማቲክ መሓጸቢ ማሽን',
+        price: '29,000 ETB',
+        image: 'images/washing-machine.svg',
+        specs: ['8kg Capacity', 'Quick Wash Mode', 'Low Power Consumption', 'Silent Motor']
+      },
+      {
+        id: 'oven-1',
+        category: 'oven',
+        categoryName: { en: 'Oven & Cooker', am: 'ምግብ ማብሰያ Ovin', or: 'Ovin fi Afuur', ti: 'እቶንን መቁረውን' },
+        name: 'Modern Gas & Electric Oven',
+        amName: 'ዘመናዊ የጋዝ እና ኤሌክትሪክ ምድጃ (Oven)',
+        orName: 'Ovin Gaazii fi Elektirikii Aamaya',
+        tiName: 'ዘመናዊ ጋዝን ኤሌክትሪክን እቶን',
+        price: '22,000 ETB',
+        image: 'images/oven.svg',
+        specs: ['Multi-burner Gas Top', 'Electric Grill Oven', 'Auto Ignition', 'Easy Clean Interior']
+      },
+      {
+        id: 'water-1',
+        category: 'water',
+        categoryName: { en: 'Water Filter', am: 'ውሃ ማጣርያ', or: 'Filtera Bishaan', ti: 'ማጽራዪ ማይ' },
+        name: 'RO 6-Stage Water Purification System',
+        amName: '6 ደረጃ ያለው የውሃ ማጣሪያ ማሽን',
+        orName: 'Filtera Bishaan Sadarkaa 6',
+        tiName: '6 ደረጃ ዘለዎ ማጽራዪ ማይ',
+        price: '14,500 ETB',
+        image: 'images/water-filter.svg',
+        specs: ['6-Stage Filtration', 'Mineral Enhancement', 'Safe & Clean Drinking Water', 'Easy Maintenance']
+      },
+      {
+        id: 'generator-1',
+        category: 'generator',
+        categoryName: { en: 'Generator', am: 'ጅፖስ', or: 'Jeneraatera', ti: 'ጅነሬተር' },
+        name: 'Silent Diesel/Petrol Generator 5kVA',
+        amName: 'ኃይለኛ ጅነሬተር 5 ኪሎ ቫት',
+        orName: 'Jeneraatera Sagalee Hin Qabne 5kVA',
+        tiName: 'ጽኑዕ ጅነሬተር 5 ኪሎ ቫት',
+        price: '45,000 ETB',
+        image: 'images/generator.svg',
+        specs: ['5kVA Power Output', 'Electric Start', 'Low Noise Enclosure', 'Fuel Efficient']
+      },
+      {
+        id: 'dish-1',
+        category: 'dish',
+        categoryName: { en: 'Dish Accessories', am: 'ዲሽ ሙሉ አክተሰሪ', or: 'Meeduu Diishii', ti: 'ኣቕሑ ዲሽ' },
+        name: 'Complete HD Dish Satellite Setup',
+        amName: 'ሙሉ የዲሽ ማቀናበሪያ እቃዎች',
+        orName: 'Meeshaalee Diishii Guutuu',
+        tiName: 'ምሉእ ኣቕሑ ዲሽ',
+        price: '4,800 ETB',
+        image: 'images/dish.svg',
+        specs: ['HD Receiver', 'High Gain Dish Antenna', 'LNB & Full Cabling Set', 'Clear Signal Reception']
+      }
+    ];
+
+    // ★ PRODUCT PHOTO LINKS — paste a direct image link (ends in .jpg / .png / .webp) for any product.
+    //   Links can come from different sites. Leave '' to use the drawing in /images instead.
+    //   If a link is broken, the site automatically falls back to the drawing.
+    const IMAGE_LINKS = {
+      refrigerator: 'https://cdn11.bigcommerce.com/s-gj3gabugpb/images/stencil/1280x1280/products/266/1659/6546228_sd__16617.1767234673.jpg?c=1',
+      washing:      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW07DU3z1bo-RokSRVallPU5xGVR6OjmTm09q28_T0ew&s=10',
+      oven:         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCYRLyJnPeN3RLZFk7K1n36BSy-0j6vVbVVjFQgLfpCpfOZCRR1mxnds5W&s=10',
+      water:        'https://s.alicdn.com/@sc04/kf/Hadeacb6b4cc7443ea441259f5e61df7eH.jpg_300x300.jpg',
+      generator:    'https://s.alicdn.com/@sc04/kf/Ha8f13fb8495943e396e32d9570d517f6J.jpg_300x300.jpg',
+      dish:         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToDJyqtHtgn0lodYgoDMY5FDu7G_W27VE-_sFtsYRtYQ&s=10'
+    };
+    PRODUCTS.forEach(p => { if (IMAGE_LINKS[p.category]) p.image = IMAGE_LINKS[p.category]; });
+
+    // Product illustrations — shown automatically if images/<name>.jpg is missing
+    const S = 'fill="#0b131a" stroke="url(#g)" stroke-width="5"';
+    const SHAPES = {
+      refrigerator: `<rect x="128" y="26" width="144" height="250" rx="16" ${S}/><line x1="200" y1="26" x2="200" y2="276" stroke="url(#g)" stroke-width="4"/><rect x="186" y="120" width="6" height="46" rx="3" fill="#00ff9d"/><rect x="208" y="120" width="6" height="46" rx="3" fill="#3ee6ff"/><rect x="146" y="52" width="34" height="10" rx="5" fill="#ffc53d" opacity=".9"/><rect x="146" y="74" width="26" height="8" rx="4" fill="#93a7b8" opacity=".5"/><rect x="140" y="276" width="14" height="10" rx="3" fill="#93a7b8"/><rect x="246" y="276" width="14" height="10" rx="3" fill="#93a7b8"/>`,
+      washing: `<rect x="108" y="30" width="184" height="244" rx="18" ${S}/><line x1="108" y1="82" x2="292" y2="82" stroke="url(#g)" stroke-width="3"/><circle cx="140" cy="56" r="11" fill="none" stroke="#ffc53d" stroke-width="4"/><rect x="172" y="48" width="64" height="16" rx="4" fill="#00ff9d" opacity=".85"/><circle cx="266" cy="56" r="6" fill="#3ee6ff"/><circle cx="200" cy="178" r="68" fill="#0e1620" stroke="url(#g)" stroke-width="7"/><circle cx="200" cy="178" r="50" fill="url(#g)" opacity=".22"/><path d="M158 184 q14 -16 28 0 t28 0 t28 0" fill="none" stroke="#00ff9d" stroke-width="5" stroke-linecap="round"/>`,
+      oven: `<rect x="70" y="50" width="260" height="226" rx="16" ${S}/><rect x="70" y="50" width="260" height="46" rx="16" fill="#0e1620" stroke="url(#g)" stroke-width="4"/><circle cx="125" cy="73" r="14" fill="none" stroke="#ffc53d" stroke-width="4"/><circle cx="165" cy="73" r="14" fill="none" stroke="#00ff9d" stroke-width="4"/><circle cx="235" cy="73" r="14" fill="none" stroke="#3ee6ff" stroke-width="4"/><circle cx="275" cy="73" r="14" fill="none" stroke="#ffc53d" stroke-width="4"/><rect x="92" y="130" width="216" height="118" rx="10" fill="url(#g)" opacity=".18" stroke="url(#g)" stroke-width="4"/><rect x="104" y="112" width="192" height="9" rx="4" fill="#93a7b8"/><path d="M130 220 h140 M130 200 h140" stroke="#00ff9d" stroke-width="3" opacity=".6"/>`,
+      water: `<rect x="86" y="70" width="52" height="170" rx="14" ${S}/><rect x="174" y="70" width="52" height="170" rx="14" ${S}/><rect x="262" y="70" width="52" height="170" rx="14" ${S}/><rect x="92" y="130" width="40" height="104" rx="10" fill="#3ee6ff" opacity=".35"/><rect x="180" y="150" width="40" height="84" rx="10" fill="#00ff9d" opacity=".35"/><rect x="268" y="110" width="40" height="124" rx="10" fill="#3ee6ff" opacity=".35"/><path d="M112 70 v-24 h176 v24" fill="none" stroke="#ffc53d" stroke-width="5" stroke-linecap="round"/><rect x="108" y="248" width="184" height="16" rx="6" fill="#0b131a" stroke="url(#g)" stroke-width="4"/>`,
+      generator: `<rect x="86" y="108" width="228" height="124" rx="14" ${S}/><rect x="104" y="80" width="150" height="34" rx="12" fill="#0e1620" stroke="url(#g)" stroke-width="5"/><rect x="116" y="124" width="104" height="14" rx="4" fill="#00ff9d" opacity=".8"/><circle cx="262" cy="150" r="20" fill="none" stroke="#ffc53d" stroke-width="5"/><circle cx="262" cy="150" r="7" fill="#ffc53d"/><circle cx="130" cy="184" r="9" fill="#3ee6ff"/><circle cx="162" cy="184" r="9" fill="#3ee6ff"/><circle cx="194" cy="184" r="9" fill="#ffc53d"/><path d="M86 232 v22 M314 232 v22 M70 254 h260" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/><circle cx="108" cy="268" r="14" fill="#0b131a" stroke="#93a7b8" stroke-width="4"/><circle cx="292" cy="268" r="14" fill="#0b131a" stroke="#93a7b8" stroke-width="4"/>`,
+      dish: `<ellipse cx="170" cy="130" rx="92" ry="66" transform="rotate(-30 170 130)" ${S}/><ellipse cx="170" cy="130" rx="60" ry="42" transform="rotate(-30 170 130)" fill="url(#g)" opacity=".2"/><path d="M170 130 L252 62" stroke="#ffc53d" stroke-width="5" stroke-linecap="round"/><circle cx="254" cy="60" r="9" fill="#ffc53d"/><path d="M160 196 v54 M120 262 h80" stroke="url(#g)" stroke-width="8" stroke-linecap="round"/><rect x="268" y="206" width="76" height="34" rx="8" ${S}/><circle cx="286" cy="223" r="5" fill="#00ff9d"/><rect x="298" y="220" width="36" height="6" rx="3" fill="#93a7b8" opacity=".6"/>`
+    };
+    window.fallbackImg = function (img, key) {
+      const svg = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00ff9d"/><stop offset="100%" stop-color="#3ee6ff"/></linearGradient></defs><rect width="400" height="300" fill="#050a0f"/><circle cx="200" cy="150" r="150" fill="#00ff9d" opacity=".08"/>${SHAPES[key] || ''}</svg>`;
+      img.onerror = null;
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    };
+
+    let currentLang = 'en';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const productGrid = document.getElementById('productGrid');
+      const searchInput = document.getElementById('searchInput');
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const resultCount = document.getElementById('resultCount');
+      const langSelect = document.getElementById('langSelect');
+
+      function showToast(msg) {
+        const toast = document.getElementById('toast');
+        if(!toast) return;
+        toast.innerHTML = `<span class="toast-dot"></span><span>${msg}</span>`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+
+      window.showToast = showToast;
+
+      function renderProducts(items) {
+        if (!productGrid) return;
+        productGrid.innerHTML = '';
+        if (items.length === 0) {
+          productGrid.innerHTML = `<p class="product-empty">No products found.</p>`;
+          if(resultCount) resultCount.textContent = '0 items';
+          return;
+        }
+
+        if(resultCount) resultCount.textContent = `${items.length} items`;
+
+        const L = {
+          order: { en: 'Order', am: 'ይዘዙ', or: 'Ajaji', ti: 'ኣዝዙ' },
+          price: { en: 'Price', am: 'ዋጋ', or: 'Gatii', ti: 'ዋጋ' },
+          view: { en: 'Quick view', am: 'ፈጣን እይታ', or: 'Ariifachiisaan ilaali', ti: 'ቅልጡፍ ርአ' }
+        };
+        const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+        items.forEach((p, i) => {
+          let title = p.name;
+          if (currentLang === 'am') title = p.amName || p.name;
+          else if (currentLang === 'or') title = p.orName || p.name;
+          else if (currentLang === 'ti') title = p.tiName || p.name;
+
+          const catName = p.categoryName[currentLang] || p.categoryName.en;
+          const [amount, currency] = p.price.split(' ');
+
+          const card = document.createElement('article');
+          card.className = 'product-card';
+          card.style.setProperty('--i', i);
+          card.innerHTML = `
+            <div class="product-img-wrap" data-view="${p.id}">
+              <img src="${p.image}" alt="${title}" loading="lazy" referrerpolicy="no-referrer" onerror="fallbackImg(this,'${p.category}')" />
+              <span class="product-badge">${catName}</span>
+              <span class="quick-view">${L.view[currentLang] || L.view.en}</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">${title}</h3>
+              <ul class="product-specs">
+                ${p.specs.map(s => `<li>${s}</li>`).join('')}
+              </ul>
+              <div class="product-footer">
+                <div class="product-price">
+                  <small>${L.price[currentLang] || L.price.en}</small>
+                  <b>${amount}<i>${currency || ''}</i></b>
+                </div>
+                <a href="https://t.me/sebahhhh?text=${encodeURIComponent('Hi, I am interested in ' + p.name)}" target="_blank" rel="noopener" class="product-cta">
+                  ${L.order[currentLang] || L.order.en} ${arrow}
+                </a>
+              </div>
+            </div>
+          `;
+          productGrid.appendChild(card);
+        });
+      }
+
+      let activeFilter = 'all';
+      function filterAndSearch() {
+        const query = searchInput ? searchInput.value.toLowerCase() : '';
+        const filtered = PRODUCTS.filter(p => {
+          const matchesCat = activeFilter === 'all' || p.category === activeFilter;
+          const matchesQuery = p.name.toLowerCase().includes(query) || 
+                               (p.amName && p.amName.toLowerCase().includes(query)) || 
+                               (p.orName && p.orName.toLowerCase().includes(query)) || 
+                               (p.tiName && p.tiName.toLowerCase().includes(query)) || 
+                               p.categoryName.en.toLowerCase().includes(query);
+          return matchesCat && matchesQuery;
+        });
+        renderProducts(filtered);
+      }
+
+      if(searchInput) {
+        searchInput.addEventListener('input', filterAndSearch);
+      }
+
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          filterTabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          activeFilter = tab.getAttribute('data-filter');
+          filterAndSearch();
+        });
+      });
+
+      function changeLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll('[data-en]').forEach(el => {
+          const val = el.getAttribute(`data-${currentLang}`);
+          if (val) {
+            el.innerHTML = val;
+          }
+        });
+        filterAndSearch();
+      }
+
+      if(langSelect) {
+        langSelect.addEventListener('change', (e) => {
+          changeLanguage(e.target.value);
+        });
+      }
+
+      renderProducts(PRODUCTS);
+
+      // Quick-view modal
+      const modal = document.getElementById('productModal'), ov = document.getElementById('modalOverlay');
+      const nameOf = p => (currentLang === 'am' && p.amName) || (currentLang === 'or' && p.orName) || (currentLang === 'ti' && p.tiName) || p.name;
+      function setModal(on) { modal.classList.toggle('open', on); ov.classList.toggle('open', on); document.body.style.overflow = on ? 'hidden' : ''; }
+      productGrid.addEventListener('click', e => {
+        const v = e.target.closest('[data-view]'); if (!v) return;
+        const p = PRODUCTS.find(x => x.id === v.dataset.view); if (!p) return;
+        const t = nameOf(p);
+        document.getElementById('modalMedia').innerHTML = `<img src="${p.image}" alt="${t}" referrerpolicy="no-referrer" onerror="fallbackImg(this,'${p.category}')" />`;
+        document.getElementById('modalCat').textContent = p.categoryName[currentLang] || p.categoryName.en;
+        document.getElementById('modalTitle').textContent = t;
+        document.getElementById('modalSpecs').innerHTML = p.specs.map(s => `<li>${s}</li>`).join('');
+        document.getElementById('modalPrice').textContent = p.price;
+        document.getElementById('modalContact').href = 'https://t.me/sebahhhh?text=' + encodeURIComponent('Hi, I am interested in ' + p.name);
+        setModal(true);
+      });
+      ov.addEventListener('click', () => setModal(false));
+      document.getElementById('modalClose').addEventListener('click', () => setModal(false));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') setModal(false); });
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
